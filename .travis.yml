@@ -1,0 +1,21 @@
+sudo: false
+language: bash
+env:
+  - BR_RELEASE=2015.08-rc1.rev1
+addons:
+  apt:
+    packages:
+    - build-essential
+    - libncurses5-dev
+    - rsync
+    - cpio
+    - python
+    - unzip
+    - bc
+    - wget
+    - pcregrep
+install:
+  - wget -nv https://github.com/glerchundi/buildroot/releases/download/v$BR_RELEASE/buildroot-$BR_RELEASE.tar.bz2
+  - tar xf buildroot-*.tar*
+  - rm buildroot-*.tar*
+  - ln -s buildroot-* buildroot
