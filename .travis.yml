@@ -2,7 +2,7 @@ sudo: false
 language: bash
 env:
   global:
-    - BR_RELEASE=2015.08-rc1.rev1
+    - BR_RELEASE=2015.08-rc1.rev2
     - ROOTFS=~/buildroot/output/images/rootfs
 addons:
   apt:
