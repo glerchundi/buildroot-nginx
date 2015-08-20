@@ -17,8 +17,8 @@ USERNAME=$(echo ${TRAVIS_REPO_SLUG} | cut -d"/" -f1)
 REPONAME=$(echo ${TRAVIS_REPO_SLUG} | cut -d"/" -f2)
 
 # release this :-)
-github-release release --user "${USERNAME}" --repo "${REPONAME}" --tag "${TRAVIS_TAG}" --name "${TRAVIS_TAG}"
+./github-release release --user "${USERNAME}" --repo "${REPONAME}" --tag "${TRAVIS_TAG}" --name "${TRAVIS_TAG}"
 for i in ~/buildroot/output/images/*-rootfs.*; do
   bn=$(basename $i)
-  github-release upload --user "${USERNAME}" --repo "${REPONAME}" --tag "${TRAVIS_TAG}" --name "${bn}" --file "${i}"
+  ./github-release upload --user "${USERNAME}" --repo "${REPONAME}" --tag "${TRAVIS_TAG}" --name "${bn}" --file "${i}"
 done
