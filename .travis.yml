@@ -17,7 +17,8 @@ addons:
     - wget
 install:
   - cd ~
-  - echo "<== FOLLOW DIRNAME START ==>"; dirname $(readlink .travis.yml); echo "<== FOLLOW DIRNAME END ==>"
+  - cat $TRAVIS_BUILD_DIR/.travis.yml
+  - echo "<== FOLLOW DIRNAME START ==>"; dirname $(readlink -f $TRAVIS_BUILD_DIR/.travis.yml); echo "<== FOLLOW DIRNAME END ==>"
   - wget -nv https://github.com/glerchundi/buildroot/releases/download/v$BR_RELEASE/buildroot-$BR_RELEASE.tar.bz2
   - tar xf buildroot-*.tar*
   - rm buildroot-*.tar*
