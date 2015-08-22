@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# get repo name
-REPO_NAME=$(echo ${TRAVIS_REPO_SLUG} | cut -d"/" -f2)
-
-# get tag and use it as a version
-VERSION="${TRAVIS_TAG:1}"
-
 # move to buildroot root
 cd ~/buildroot
 
@@ -19,9 +13,18 @@ for i in .defconfig.rendered.*; do
   make 2> ~/stderr.${i}.log | \tee ~/stdout.${i}.log | grep -i -e "^.*:" | grep -v "gcc" | grep -v "g++"
 done
 
+# exit if TRAVIS_TAG is empty, no need to release anything
+if [ -z "${TRAVIS_TAG}" ]; then
+  exit 0
+fi
+
+# get repo name & version
+REPONAME=$(echo ${TRAVIS_REPO_SLUG} | cut -d"/" -f2)
+VERSION="${TRAVIS_TAG:1}"
+
 # rename files
 outpath=output/images
 for i in $outpath/rootfs*; do
   bn=$(basename ${i})
-  mv ${i} ${outpath}/${REPO_NAME}-$V{ERSION}-${bn}
+  mv ${i} ${outpath}/${REPONAME}-${VERSION}-${bn}
 done
